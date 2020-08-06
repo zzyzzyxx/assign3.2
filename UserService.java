@@ -40,6 +40,7 @@ public class UserService {
 				//System.out.println("User"+i+" role: "+users[i].getRole());
 				indexOfUsers++;
 				}
+		
 		} 
 		
 		catch (FileNotFoundException e) {
@@ -70,7 +71,7 @@ public class UserService {
 			writer = new BufferedWriter(new FileWriter("users.txt"));
 			
 			String data = scan.nextLine();
-			//Arrays.sort(users);
+			
 			for(indexOfUsers =0; indexOfUsers <20; indexOfUsers++) {
 				if(UserApplication1.username == users[indexOfUsers].getName()) {
 				users[indexOfUsers].setPassword(data);
@@ -101,14 +102,25 @@ public class UserService {
 			for(indexOfUsers =0; indexOfUsers <20; indexOfUsers++) {
 				if(UserApplication1.username == users[indexOfUsers].getName()) {
 				users[indexOfUsers].setEmail(data);
-				}
 				
+				}
+					
+				users[indexOfUsers].getEmail();
+				users[indexOfUsers].getPassword();
+				users[indexOfUsers].getName();
+				users[indexOfUsers].getRole();
+				
+			}
+			Arrays.sort(users);
+			for(indexOfUsers =0; indexOfUsers <20; indexOfUsers++) {
+				
+					
 				writer.write(users[indexOfUsers].getEmail()+", ");
 				writer.write(users[indexOfUsers].getPassword()+", ");
 				writer.write(users[indexOfUsers].getName()+", ");
 				writer.write(users[indexOfUsers].getRole()+"\n");
 				
-			}Arrays.sort(users);
+			}
 			
 		}
 		finally {
@@ -125,7 +137,7 @@ public class UserService {
 			writer = new BufferedWriter(new FileWriter("users.txt"));
 			
 			String data = scan.nextLine();
-			//Arrays.sort(users);
+			
 			for(indexOfUsers =0; indexOfUsers <20; indexOfUsers++) {
 				
 				if(UserApplication1.username == users[indexOfUsers].getName()) {

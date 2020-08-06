@@ -12,7 +12,7 @@ public class UserApplication1 {
 	static Scanner scan = new Scanner(System.in);
 	static boolean validLogins = false;
 	static String username = null;
-	
+	static boolean  superuser = false;
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -41,6 +41,7 @@ public class UserApplication1 {
 			validLogins = true;
 			
 				if (UserService.users[indexOfUsers].getRole().equals("super_user")){
+					superuser = true;
 			superUserMenu(indexOfUsers);}
 				else {
 			normalUserMenu(indexOfUsers);}
@@ -63,9 +64,9 @@ public class UserApplication1 {
 	
 
 	private static void superUserMenu(int indexOfUsers) throws IOException {
-
+		String option = null;
 		System.out.println("----------");
-		while(validLogins == true) {
+		
 		System.out.println("Please choose from the following options:");
 			System.out.println("(0) Log in as another user");
 			System.out.println("(1) Update username");
@@ -73,79 +74,94 @@ public class UserApplication1 {
 			System.out.println("(3) Update name");
 			System.out.println("(4) Exit");
             
-            
-			String option = scan.nextLine();
-			if(option.equals("0")) {
-				while (validLogins) {
+            option = scan.nextLine();
+            while(option !="4") {
+            	if(option.equals("0")) {
+            		while (validLogins) {
 			System.out.println("Which user would you like to login as? (Type in a valid user email)");
+			
 			String email = scan.nextLine();
 			
-				for(indexOfUsers = 0; indexOfUsers < 20; indexOfUsers++) {
-					if((email.equalsIgnoreCase(UserService.users[indexOfUsers].getEmail()))){
+					for(indexOfUsers = 0; indexOfUsers < 20; indexOfUsers++) {
+						if((email.equalsIgnoreCase(UserService.users[indexOfUsers].getEmail()))){
 				
 						System.out.println("Welcome " + UserService.users[indexOfUsers].getName() +", " +UserService.users[indexOfUsers].getRole());
 						 username = UserService.users[indexOfUsers].getName();
 						validLogins = true;
 						normalUserMenu(indexOfUsers);
+						}
 					}
-				}
-				}	
+            	}	
 			}
-			if(option.equals("1")) {
+            	else if(option.equals("1")) {
 				System.out.println("Updating username");
 				UserService.changeUserEmail(scan);
 				System.out.println("Your username has been changed");
+				break;
 				}
-			if(option.equals("2")) {
+            	else if(option.equals("2")) {
 				System.out.println("Updating password");
 				UserService.changeUserPassword(scan);
 				System.out.println("Your password has been changed");
+				break;
 				}
-			if(option.equals("3")) {
+            	else if(option.equals("3")) {
 				System.out.println("Updating name");
 				UserService.changeUserName(scan);
 				System.out.println("Your name has been changed, "+ UserService.users[indexOfUsers].getName());
+				break;
 				}	
-			if(!option.equals("4")) {
-				System.out.println("Wrong input.");
+            	else if(!option.equals("4")) {
+				System.out.println("Wrong input. Try again:");
+				superUserMenu(indexOfUsers);
 				}
 			}	
 			}
 		
 	
 	private static void normalUserMenu(int indexOfUsers) throws IOException {
-		if (UserService.users[indexOfUsers].getRole().equals("normal_user")){
-			while(validLogins == true) {
+		String option = null;
+		while(validLogins == true) {
+			
 			System.out.println("(1) Update username");
 			System.out.println("(2) Update password");
 			System.out.println("(3) Update name");
 			System.out.println("(4) Exit");
 			
 			
-			String option = scan.nextLine();
+				option = scan.nextLine();
+			
+			while(option !="4") {
+		
+			
+			
 			if(option.equals("1")) {
 				System.out.println("Updating username");
 				UserService.changeUserEmail(scan);
 				System.out.println("Your username has been changed");
 				break;
 				}
-			if(option.equals("2")) {
+			else if(option.equals("2")) {
 				System.out.println("Updating password");
 				UserService.changeUserPassword(scan);
 				System.out.println("Your password has been changed");
 				break;
 				}
-			if(option.equals("3")) {
+			else if(option.equals("3")) {
 				System.out.println("Updating name");
 				UserService.changeUserName(scan);
 				System.out.println("Your name has been changed, "+ username);
 				break;
 				}
-			if(!option.equals("4")) {
+			else if(!option.equals("4")) {
 				System.out.println("Wrong input.");
+				break;
 				}
+			
+			
 		}
-		}
+
+	}
 	}
 	
 	
